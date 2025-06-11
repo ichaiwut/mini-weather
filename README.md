@@ -1,149 +1,149 @@
-# Mini Weather App
+# แอปพยากรณ์อากาศมินิ
 
-A lightweight weather application built with Vue.js and Vite, designed to provide quick and intuitive weather information.
+แอปพลิเคชันพยากรณ์อากาศขนาดเล็ก ที่สร้างด้วย Vue.js และ Vite ออกแบบมาเพื่อให้ข้อมูลสภาพอากาศที่รวดเร็วและใช้งานง่าย
 
-## Installation
+## การติดตั้ง
 
-### Prerequisites
+### ข้อกำหนดเบื้องต้น
 
-- Node.js (version 16 or higher)
-- npm or yarn package manager
+- Node.js (เวอร์ชัน 16 หรือสูงกว่า)
+- npm หรือ yarn package manager
 
-### Steps
+### ขั้นตอนการติดตั้ง
 
-1. Clone the repository:
+1. โคลนโปรเจคจากที่เก็บโค้ด:
 
    ```bash
    git clone <repository-url>
    cd mini-weather
    ```
 
-2. Install dependencies:
+2. ติดตั้ง dependencies:
 
    ```bash
    npm install
    ```
 
-3. Start the development server:
+3. เริ่มเซิร์ฟเวอร์สำหรับพัฒนา:
 
    ```bash
    npm run dev
    ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+4. เปิดเบราว์เซอร์และไปที่ `http://localhost:3000`
 
-## Delivery / Deployment Process
+## กระบวนการส่งมอบ / การ Deploy
 
-### Development
+### การพัฒนา
 
-- Run `npm run dev` to start the development server
-- The application will automatically reload when you make changes
+- รัน `npm run dev` เพื่อเริ่มเซิร์ฟเวอร์สำหรับพัฒนา
+- แอปพลิเคชันจะโหลดใหม่โดยอัตโนมัติเมื่อมีการเปลี่ยนแปลง
 
-### Production Build
+### การสร้างไฟล์สำหรับใช้งานจริง
 
-- Run `npm run build` to create a production-ready build
-- The built files will be in the `dist/` directory
-- Run `npm run preview` to preview the production build locally
+- รัน `npm run build` เพื่อสร้างไฟล์สำหรับใช้งานจริง
+- ไฟล์ที่สร้างแล้วจะอยู่ในโฟลเดอร์ `dist/`
+- รัน `npm run preview` เพื่อดูตัวอย่างแบบ production ในเครื่อง
 
-### Deployment Options
+### ตัวเลือกการ Deploy
 
-- **Static Hosting**: Deploy the `dist/` folder to any static hosting service (Netlify, Vercel, GitHub Pages)
-- **CDN**: Upload built files to a CDN for global distribution
-- **Docker**: Can be containerized for deployment in any container orchestration platform
+- **Static Hosting**: Deploy โฟลเดอร์ `dist/` ไปยังบริการ static hosting (Netlify, Vercel, GitHub Pages)
+- **CDN**: อัพโหลดไฟล์ที่สร้างแล้วไปยัง CDN เพื่อการกระจายทั่วโลก
+- **Docker**: สามารถบรรจุใน container สำหรับ deploy บนแพลตฟอร์ม container orchestration
 
-## Project Structure
+## โครงสร้างโปรเจค
 
 ```
 mini-weather/
 ├── src/
-│   ├── App.vue          # Main application component
-│   ├── main.js          # Application entry point
-│   └── style.css        # Global styles
-├── index.html           # HTML template
-├── vite.config.js       # Vite configuration
-├── package.json         # Dependencies and scripts
-├── package-lock.json    # Dependency lock file
-├── .gitignore          # Git ignore rules
-└── README.md           # Project documentation
+│   ├── App.vue          # คอมโพเนนต์แอปพลิเคชันหลัก
+│   ├── main.js          # จุดเริ่มต้นของแอปพลิเคชัน
+│   └── style.css        # สไตล์ส่วนกลาง
+├── index.html           # เทมเพลต HTML
+├── vite.config.js       # การตั้งค่า Vite
+├── package.json         # Dependencies และ scripts
+├── package-lock.json    # ไฟล์ล็อค dependencies
+├── .gitignore          # กฎการละเว้นไฟล์ Git
+└── README.md           # เอกสารประกอบโปรเจค
 ```
 
-## Frameworks / Libraries Used
+## Framework / ไลบรารีที่ใช้
 
 ### Core Framework
 
-- **Vue.js 3.5.16**: Progressive JavaScript framework for building user interfaces
-- **Vite 6.3.5**: Fast build tool and development server
+- **Vue.js 3.5.16**: Progressive JavaScript framework สำหรับสร้างส่วนติดต่อผู้ใช้
+- **Vite 6.3.5**: เครื่องมือ build และ development server ที่รวดเร็ว
 
-### Development Tools
+### เครื่องมือพัฒนา
 
-- **@vitejs/plugin-vue 5.2.4**: Official Vue plugin for Vite
-- **ES Modules**: Modern JavaScript module system
+- **@vitejs/plugin-vue 5.2.4**: ปลั๊กอิน Vue อย่างเป็นทางการสำหรับ Vite
+- **ES Modules**: ระบบ module JavaScript สมัยใหม่
 
-### Build Configuration
+### การตั้งค่า Build
 
-- **Vite**: Configured with Vue plugin support
-- **Development Server**: Runs on port 3000 with auto-open browser
-- **Hot Module Replacement**: Enabled for fast development
+- **Vite**: ตั้งค่าพร้อมการสนับสนุนปลั๊กอิน Vue
+- **Development Server**: ทำงานบนพอร์ต 3000 พร้อมเปิดเบราว์เซอร์อัตโนมัติ
+- **Hot Module Replacement**: เปิดใช้งานเพื่อการพัฒนาที่รวดเร็ว
 
-## Server Information
+## ข้อมูลเซิร์ฟเวอร์
 
 ### Development Server
 
-- **Port**: 3000 (configurable in `vite.config.js`)
+- **Port**: 3000 (สามารถตั้งค่าได้ใน `vite.config.js`)
 - **Host**: localhost
-- **Auto-open**: Browser automatically opens on server start
-- **Hot Reload**: Enabled for real-time updates
+- **Auto-open**: เบราว์เซอร์เปิดอัตโนมัติเมื่อเริ่มเซิร์ฟเวอร์
+- **Hot Reload**: เปิดใช้งานสำหรับการอัพเดตแบบเรียลไทม์
 
 ### Production Server
 
-- Static files served from `dist/` directory
-- Compatible with any web server (Apache, Nginx, etc.)
-- CDN-friendly for global distribution
+- ไฟล์ static ที่เสิร์ฟจากโฟลเดอร์ `dist/`
+- เข้ากันได้กับเว็บเซิร์ฟเวอร์ใดๆ (Apache, Nginx, ฯลฯ)
+- เหมาะสำหรับการกระจายผ่าน CDN
 
 ## Continuous Integration
 
-### Available Scripts
+### Scripts ที่ใช้ได้
 
-- `npm run dev`: Start development server
-- `npm run build`: Build for production
-- `npm run preview`: Preview production build locally
-- `npm test`: Run tests (currently not configured)
+- `npm run dev`: เริ่ม development server
+- `npm run build`: Build สำหรับ production
+- `npm run preview`: ดูตัวอย่าง production build ในเครื่อง
+- `npm test`: รันเทสต์ (ยังไม่ได้ตั้งค่า)
 
-### Recommended CI/CD Pipeline
+### แนะนำ CI/CD Pipeline
 
-1. **Code Quality**: ESLint, Prettier integration
-2. **Testing**: Unit tests with Vitest (recommended)
-3. **Build**: Automatic production builds on push
-4. **Deploy**: Auto-deployment to staging/production environments
+1. **Code Quality**: การรวม ESLint, Prettier
+2. **Testing**: Unit tests ด้วย Vitest (แนะนำ)
+3. **Build**: การ build production อัตโนมัติเมื่อมี push
+4. **Deploy**: การ deploy อัตโนมัติไปยัง staging/production environments
 
-## Other Information
+## ข้อมูลอื่นๆ
 
-### Development Notes
+### หมายเหตุการพัฒนา
 
-- Built with modern JavaScript (ES6+)
-- Follows Vue.js 3 Composition API patterns
-- Responsive design principles
-- Modular component architecture
+- สร้างด้วย JavaScript สมัยใหม่ (ES6+)
+- ใช้รูปแบบ Vue.js 3 Composition API
+- หลักการออกแบบ responsive
+- สถาปัตยกรรมคอมโพเนนต์แบบโมดูล
 
-### Future Enhancements
+### การปรับปรุงในอนาคต
 
-- Weather API integration
-- Location-based weather data
-- Weather forecasts and historical data
-- Responsive mobile design
-- Progressive Web App (PWA) features
+- การรวม Weather API
+- ข้อมูลสภาพอากาศตามตำแหน่ง
+- การพยากรณ์อากาศและข้อมูลประวัติศาสตร์
+- การออกแบบ responsive บนมือถือ
+- คุณสมบัติ Progressive Web App (PWA)
 
-### Contributing
+### การมีส่วนร่วม
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+1. Fork repository
+2. สร้าง feature branch
+3. ทำการเปลี่ยนแปลง
+4. ส่ง pull request
 
-### License
+### ใบอนุญาต
 
-ISC License - see package.json for details
+ISC License - ดูรายละเอียดใน package.json
 
-### Support
+### การสนับสนุน
 
-For issues and questions, please create an issue in the project repository.
+สำหรับปัญหาและคำถาม กรุณาสร้าง issue ใน repository ของโปรเจค
