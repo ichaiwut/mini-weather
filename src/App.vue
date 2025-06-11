@@ -1,15 +1,20 @@
-<script setup>
+<script setup lang="ts">
+import { ref } from 'vue';
+
 // This is where we'll build our mini weather app
+const appName = ref<string>('Mini Weather App');
+const isLoading = ref<boolean>(false);
 </script>
 
 <template>
   <div id="app">
     <header>
-      <h1>Mini Weather App</h1>
+      <h1>{{ appName }}</h1>
     </header>
     <main>
       <p>Welcome to your Vue.js weather application!</p>
       <p>Ready to start building amazing features.</p>
+      <div v-if="isLoading">Loading weather data...</div>
     </main>
   </div>
 </template>
