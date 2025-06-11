@@ -61,6 +61,9 @@ mini-weather/
 │   └── style.css        # สไตล์ส่วนกลาง
 ├── index.html           # เทมเพลต HTML
 ├── vite.config.js       # การตั้งค่า Vite
+├── .eslintrc.js         # การตั้งค่า ESLint
+├── .prettierrc          # การตั้งค่า Prettier
+├── .prettierignore      # ไฟล์ที่ไม่ต้องจัดรูปแบบ
 ├── package.json         # Dependencies และ scripts
 ├── package-lock.json    # ไฟล์ล็อค dependencies
 ├── .gitignore          # กฎการละเว้นไฟล์ Git
@@ -77,6 +80,8 @@ mini-weather/
 ### เครื่องมือพัฒนา
 
 - **@vitejs/plugin-vue 5.2.4**: ปลั๊กอิน Vue อย่างเป็นทางการสำหรับ Vite
+- **ESLint**: เครื่องมือตรวจสอบคุณภาพโค้ด JavaScript และ Vue
+- **Prettier**: เครื่องมือจัดรูปแบบโค้ดอัตโนมัติ
 - **ES Modules**: ระบบ module JavaScript สมัยใหม่
 
 ### การตั้งค่า Build
@@ -107,14 +112,33 @@ mini-weather/
 - `npm run dev`: เริ่ม development server
 - `npm run build`: Build สำหรับ production
 - `npm run preview`: ดูตัวอย่าง production build ในเครื่อง
+- `npm run lint`: ตรวจสอบคุณภาพโค้ดด้วย ESLint
+- `npm run lint:fix`: แก้ไขปัญหา linting อัตโนมัติ
+- `npm run format`: จัดรูปแบบโค้ดด้วย Prettier
+- `npm run format:check`: ตรวจสอบการจัดรูปแบบโค้ด
 - `npm test`: รันเทสต์ (ยังไม่ได้ตั้งค่า)
 
 ### แนะนำ CI/CD Pipeline
 
-1. **Code Quality**: การรวม ESLint, Prettier
+1. **Code Quality**: ตรวจสอบคุณภาพโค้ดด้วย ESLint และจัดรูปแบบด้วย Prettier (พร้อมใช้งาน)
 2. **Testing**: Unit tests ด้วย Vitest (แนะนำ)
 3. **Build**: การ build production อัตโนมัติเมื่อมี push
 4. **Deploy**: การ deploy อัตโนมัติไปยัง staging/production environments
+
+### Code Quality และ Standards
+
+โปรเจคนี้ได้ตั้งค่า:
+
+- **ESLint** สำหรับตรวจสอบคุณภาพโค้ด Vue.js และ JavaScript
+- **Prettier** สำหรับจัดรูปแบบโค้ดให้สม่ำเสมอ
+- การตั้งค่า ESLint รองรับ Vue 3 และ ES2021
+- กฎการจัดรูปแบบโค้ดที่เหมาะสมสำหรับการพัฒนาเป็นทีม
+
+คำแนะนำ:
+
+- รัน `npm run lint` ก่อน commit โค้ด
+- ตั้งค่า editor ให้ format โค้ดด้วย Prettier เมื่อบันทึกไฟล์
+- ใช้ `npm run lint:fix` เพื่อแก้ไขปัญหาง่ายๆ อัตโนมัติ
 
 ## ข้อมูลอื่นๆ
 
