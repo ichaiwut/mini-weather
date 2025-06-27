@@ -29,7 +29,7 @@ export default {
 </script>
 <template>
     <div class="w-full max-w-2xl px-4 ">
-        <a href="#" class="flex flex-col gap-2 p-4 bg-white rounded-lg shadow">
+        <div class="flex flex-col gap-2 p-4 bg-white rounded-lg shadow">
             <div class="flex justify-between items-center">
                 <h2>Today's Weather</h2>
                 <p class="">{{ today.date }}</p>
@@ -42,8 +42,8 @@ export default {
                     <p>{{ today.tonightSummary }}<b>Lo: {{ today.low }}</b></p>
                 </div>
             </div>
-        </a>
-        <a href="#" class="flex flex-col gap-2 p-4 bg-white rounded-lg shadow mt-4">
+        </div>
+        <div class="flex flex-col gap-2 p-4 bg-white rounded-lg shadow mt-4">
             <div>
                 <div>
                     <h2></h2>
@@ -73,11 +73,16 @@ export default {
                         </div>
                         <div>
                             <span>Air Quality</span>
-                            <span>{{ currentWeather.windDirection.airQuality }}</span>
+                            <p>{{ currentWeather.windDirection.airQuality }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
+        <div class="flex flex-col gap-2 p-4 bg-white rounded-lg shadow mt-4">
+            <div class="h-100 bg-white">
+                <h2 class="text-2xl font-bold text-center">text</h2>
+            </div>
+        </div>
     </div>
 </template>

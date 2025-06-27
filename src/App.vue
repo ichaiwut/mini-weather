@@ -1,7 +1,7 @@
 <script>
+import { RouterView } from 'vue-router';
 import headerComponent from "./component/headerComponent.vue";
-import navbarComponent from "./component/navbarComponent.vue";
-import mainComponent from "./component/mainComponent.vue";
+import navBarComponent from "./component/navBarComponent.vue";
 
 export default {
   data() {
@@ -9,22 +9,20 @@ export default {
   },
   components: {
     headerComponent,
-    navbarComponent,
-    mainComponent
+    navBarComponent,
+    RouterView
   }
 };
-
 </script>
 
 <template>
   <div id="app" class="bg-blue-100 min-h-screen">
     <header>
       <headerComponent />
-      <navbarComponent />
+      <navBarComponent />
     </header>
     <main class="max-w-5xl mx-auto py-6">
-      <mainComponent />
-      
+      <router-view />
     </main>
     <footer>
       
