@@ -1,10 +1,6 @@
 <script>
 export default {
-  data() {
-    return {
-      search: '',
-    };
-  },
+    
 }
 </script>
 

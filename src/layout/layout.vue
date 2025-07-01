@@ -1,8 +1,14 @@
 <template>
-    <div class="bg-gradient-to-tl from-[#57ebd8] to-[#b8e5fe] ">
-        <headerComponent />
-        <mainComponent />
-        <footerComponent />
+    <div class="bg-gradient-to-tl from-[#57ebd8] to-[#b8e5fe]">
+        <header>
+            <headerComponent />
+        </header>
+        <main class="my-10">
+            <mainComponent />
+        </main>
+        <footer class="mt-20">
+            <footerComponent />
+        </footer>
     </div>
 </template>
 
