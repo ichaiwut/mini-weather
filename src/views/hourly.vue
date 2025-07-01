@@ -1,14 +1,26 @@
 <script>
+import getWeather from '../services/weather.service.js';
 export default {
-
+    data() {
+        return {
+            hourlyData: {},
+            defaultLocation: 'chiang mai',
+        }
+    },
+    mounted() {
+        this.getWeatherdata(this.defaultLocation);
+    },
+    methods: {
+        async getWeatherdata(location) {
+            const response = await getWeather(location);
+            this.hourlyData = response;
+        }
+    }
 }
 </script>
 <template>
-    <div class="w-full max-w-2xl">
-        <div class="h-100 bg-white rounded-lg shadow">
-            <div>
-                <h2 class="p-4 text-2xl font-bold">Hourly Weather</h2>
-            </div>
-        </div>
+    <div class="">
+        <h2>Hourly Weather</h2>
+
     </div>
 </template>
