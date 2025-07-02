@@ -15,7 +15,7 @@ export default {
             weatherData: {},
             search: '',
             defaultLocation: 'chiang mai',
-            isLoading: false,   
+            isLoading: false,
         };
     },
     mounted() {
@@ -32,34 +32,28 @@ export default {
 
         },
         getCurrentLocation() {
-            this.isLoading = true;
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
+                        this.isLoading = true;
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
                         this.getWeatherdata(`${latitude},${longitude}`);
                     }
                 );
-            } else {
-                this.isLoading = false;
             }
         },
         searchLocation() {
             if (this.search !== '') {
                 this.isLoading = true;
                 this.weatherData = {};
-                setTimeout(() => {
-                    this.getWeatherdata(this.search);
-                }, 800);
+                this.getWeatherdata(this.search);
             }
         },
         reload() {
             this.isLoading = true;
             this.weatherData = {};
-            setTimeout(() => {
-                this.getWeatherdata(this.defaultLocation);
-            }, 800);
+            this.getWeatherdata(this.search);
         }
 
     },
