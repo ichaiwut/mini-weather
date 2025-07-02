@@ -4,7 +4,7 @@
             <headerComponent />
         </header>
         <main class="my-10">
-            <mainComponent />
+            <RouterView />
         </main>
         <footer class="mt-20">
             <footerComponent />
@@ -13,14 +13,14 @@
 </template>
 
 <script>
+import { RouterView } from 'vue-router';
 import headerComponent from "../component/headerComponent.vue";
 import footerComponent from "../component/footerComponent.vue";
-import mainComponent from "../component/mainComponent.vue";
 export default {
     components: {
+        RouterView,
         headerComponent,
         footerComponent,
-        mainComponent
     }
 }
 </script>
