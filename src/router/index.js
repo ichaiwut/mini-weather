@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import daily from '../views/daily.vue';
 import hourly from '../views/hourly.vue';
-import mainComponent from '../component/mainComponent.vue';    
+import today from '../views/today.vue';
+import mainComponent from '../component/mainComponent.vue';
+
 
 const routes = [
   {
@@ -15,10 +17,15 @@ const routes = [
     component: hourly
   },
   {
+    path: '/today',
+    name: 'Today',
+    component: today
+  },
+  {
     path: '/daily',
     name: 'Daily',
     component: daily
-  }
+  },
 ];
 
 const router = createRouter({

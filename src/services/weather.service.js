@@ -1,15 +1,17 @@
 import axios from 'axios';
+import handleError from '../utility/handleError.js';
 
-const apiKey = '2d9b8167c6974910a5921942250107';
-const apiUrl = 'https://api.weatherapi.com/v1';
+const apiKey = import.meta.env.VITE_API_KEY;
+const apiUrl = import.meta.env.VITE_API_URL;
 
 async function getWeather(city) {
   try {
     const response = await axios.get(
-      `${apiUrl}/current.json?q=${city}&key=${apiKey}&lang=th`
-    );
+      `${apiUrl}/current.json?q=${city}&key=${apiKey}`
+    );  
     return response.data;
   } catch (error) {
+    handleError(error, 'can\'t find location');
     return null;
   }
 }
