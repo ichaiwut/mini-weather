@@ -10,9 +10,7 @@ async function getWeather(city) {
     );
     return response.data;
   } catch (error) {
-    const errorResponse = "Error: " + error.message;
-    console.error(errorResponse);
-    return errorResponse;
+    return null;
   }
 }
 
