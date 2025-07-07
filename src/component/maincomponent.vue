@@ -56,31 +56,33 @@ export default {
 
 <template>
     <!-- container -->
-    <div class="w-full max-w-5xl mx-auto">
-
+    <div>
         <!-- search box -->
-        <div
-            class="border border-gray-300 rounded-xl bg-white text-gray-900 w-90 px-2 py-2 my-10 flex items-center mx-auto shadow">
-            <input class="border-none outline-none w-full" v-model="search" type="text" placeholder="Search" />
-            <input class="cursor-pointer" type="button" value="Search" @click="searchLocation" @keydown.enter="searchLocation" />
-        </div>
-        <div>
-            <button class="cursor-pointer" @click="getCurrentLocation">Current location</button>
+        <div class="flex flex-wrap  md:flex justify-center mb-8">
+            <div
+                class="bg-white flex w-[300px] p-2 rounded-[10px] shadow-lg px-5">
+                <input class="border-none outline-none w-full" v-model="search" type="text" placeholder="Search" />
+                <input class="cursor-pointer" type="button" value="Search" @click="searchLocation"
+                    @keydown.enter="searchLocation" />
+            </div>
+            <div class="text-gray-500 text-sm flex items-center ml-1 p-2">
+                <button class="cursor-pointer" @click="getCurrentLocation">Current location</button>
+            </div>
         </div>
 
         <!-- main page -->
-        <div class="grid grid-cols-3 gap-5">
+        <div class="flex flex-wrap justify-between max-w-5xl mx-auto gap-5 xl:grid grid-cols-1 ">
 
             <!-- main box -->
-            <div class="h-125 w-full bg-white rounded-2xl shadow col-span-2">
+            <div class="w-full bg-white rounded-xl shadow mx-3 p-4">
 
                 <!-- main box title -->
                 <div class="flex justify-between">
-                    <div class="flex items-center ml-5 mt-5">
-                        <button class="text-2xl font-bold cursor-default">Current Weather</button>
+                    <div class="m-1">
+                        <button class="text-xl font-bold cursor-default">Current Weather</button>
                     </div>
-                    <div class="reload flex justify-end">
-                        <button class="cursor-pointer p-2" @click="reload">Reload</button>
+                    <div class="reload">
+                        <button class="cursor-pointer p-2" @click="reload"><img src="../assets/reload-icon.svg" alt="reload" class="w-4"></button>
                     </div>
                 </div>
 
@@ -126,8 +128,9 @@ export default {
             </div>
 
             <!-- air quality box -->
-            <div class="h-120 w-full">
-                <airQualityComponent class="mb-5" :airQualityData="weatherData" :isLoading="isLoading" :reload="reload"/>
+            <div class="w-full md:flex xl:grid">
+                <airQualityComponent class="mb-5" :airQualityData="weatherData" :isLoading="isLoading"
+                    :reload="reload" />
                 <todayHighlightComponent />
             </div>
             <!-- weather forecast box -->
