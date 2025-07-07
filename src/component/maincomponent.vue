@@ -4,6 +4,7 @@ import airQualityComponent from './airQualityComponent.vue';
 import todayHighlightComponent from './todayHighlightComponent.vue';
 import forecastComponent from './forecastComponent.vue';
 
+
 export default {
     components: {
         airQualityComponent,
@@ -28,7 +29,7 @@ export default {
             setTimeout(() => {
                 this.weatherData = response;
                 this.isLoading = false;
-            }, 800);
+            }, 1000);
         },
         getCurrentLocation() {
             if (navigator.geolocation) {
@@ -62,7 +63,7 @@ export default {
         <div
             class="border border-gray-300 rounded-xl bg-white text-gray-900 w-90 px-2 py-2 my-10 flex items-center mx-auto shadow">
             <input class="border-none outline-none w-full" v-model="search" type="text" placeholder="Search" />
-            <input class="cursor-pointer" type="button" value="Search" @click="searchLocation" @keydown.enter="searchLocation" />
+            <input class="cursor-pointer" type="button" value="Search" @click="searchLocation" />
         </div>
         <div>
             <button class="cursor-pointer" @click="getCurrentLocation">Current location</button>
@@ -127,12 +128,12 @@ export default {
 
             <!-- air quality box -->
             <div class="h-120 w-full">
-                <airQualityComponent class="mb-5" :airQualityData="weatherData" :isLoading="isLoading" :reload="reload"/>
-                <todayHighlightComponent />
+                <airQualityComponent class="mb-5" :airQualityData="weatherData" :isLoading="isLoading" />
+                <todayHighlightComponent :weatherHighlightData="weatherData" :isLoading="isLoading" />
             </div>
             <!-- weather forecast box -->
             <div class="col-span-3">
-                <forecastComponent />
+                <forecastComponent :forecastData="weatherData" :isLoading="isLoading" />
             </div>
         </div>
     </div>
