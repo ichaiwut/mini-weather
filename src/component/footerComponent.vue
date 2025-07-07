@@ -5,13 +5,13 @@ export default {
 </script>
 
 <template>
-    <div class="bg-white text-black py-5 flex flex-col">
-        <div class="flex flex-col items-center justify-center gap-1 xl:flex-row xl:justify-between  mx-5">
-            <div class="text-[13px] text-gray-500 xl:ml-5 mt-2">
+    <div class="bg-white text-black py-6">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="text-sm">
                 &copy; {{ new Date().getFullYear() }} Weather App. Built with Vue.js &amp; Tailwind CSS
             </div>
             <div>
-                <ul class="flex gap-7 text-sm mt-2 font-semibold">
+                <ul class="flex gap-5">
                     <li>About</li>
                     <li>Contact</li>
                     <li>Privacy</li>
