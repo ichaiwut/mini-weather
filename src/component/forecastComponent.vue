@@ -16,17 +16,18 @@ export default {
 </script>
 
 <template>
-        <div class="bg-white h-60 rounded-xl p-4 shadow-lg mx-3  ">
-            <div class="flex  items-center mb-4 justify-between">
+    <div class="h-60 w-full col-span-3">
+        <div class="bg-white h-60 rounded-2xl">
+            <div class="flex justify-between items-center">
                 <div>
                     <h2 class="text-2xl font-bold cursor-default">Weather Forecast</h2>
                 </div>
                 <div>
-                    <div class="bg-gray-200 p-1 gap-2 mr-6 rounded-[10px] flex h-[35px] w-[180px]">
-                        <button class="bg-white  rounded-[10px] text-[13px] w-full cursor-pointer" @click="isHourly = true">
+                    <div class="flex bg-gray-200 p-2 gap-2">
+                        <button class="bg-green-500 p-2" @click="isHourly = true">
                             Hourly
                         </button>
-                        <button class="bg-white  rounded-[10px] text-[13px] w-full cursor-pointer" @click="isHourly = false">
+                        <button class="bg-blue-500 p-2" @click="isHourly = false">
                             Daily
                         </button>
                     </div>
@@ -41,4 +42,5 @@ export default {
                 <daily />
             </div>
         </div>
+    </div>
 </template>
