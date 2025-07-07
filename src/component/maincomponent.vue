@@ -3,6 +3,7 @@ import getWeather from '../services/weather.service.js';
 import airQualityComponent from './airQualityComponent.vue';
 import todayHighlightComponent from './todayHighlightComponent.vue';
 import forecastComponent from './forecastComponent.vue';
+import toastAlert from './toastAlert.vue';
 
 export default {
     components: {
