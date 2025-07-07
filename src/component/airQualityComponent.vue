@@ -28,7 +28,7 @@ export default {
 </script>
 
 <template>
-    <div class="bg-white h-60 rounded-2xl">
+    <div class="h-60 rounded-2xl bg-white rounded-xl p-4 mx-3 md:w-full">
 
         <!-- title -->
         <div class="p-2">
