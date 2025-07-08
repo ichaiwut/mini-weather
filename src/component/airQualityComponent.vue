@@ -1,5 +1,9 @@
 <script>
+import { FingerprintSpinner } from 'epic-spinners'
 export default {
+    components: {
+        FingerprintSpinner
+    },
     data() {
         return {
             localAirQualityData: {},
@@ -28,15 +32,15 @@ export default {
 </script>
 
 <template>
-    <div class="bg-white h-60 rounded-2xl">
+    <div class="bg-white h-60 rounded-2xl mx-4 shadow lg:mx-0">
 
         <!-- title -->
-        <div class="p-2">
+        <div class="flex justify-between items-center p-4">
             <p class="text-2xl font-bold cursor-default">Air Quality</p>
         </div>
 
         <!-- air quality box -->
-        <div class="p-4">
+        <div class="p-4 ">
             <div v-if="localAirQualityData && localAirQualityData.current">
                 <div class="">
                     <hr>
@@ -60,10 +64,12 @@ export default {
                 </div>
             </div>
             <div v-else-if="isLoading">
-                <p class="text-gray-800">Air quality data loading...</p>
+                <div class="flex justify-center items-center mt-5 ">
+                    <fingerprint-spinner :animation-duration="800" :size="64" color="#cceeff" />
+                </div>
             </div>
             <div v-else>
-                <p class="text-gray-800">Air quality data not found.</p>
+                <p class="text-gray-500">Air quality data not found.</p>
             </div>
         </div>
     </div>
