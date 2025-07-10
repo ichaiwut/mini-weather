@@ -1,28 +1,8 @@
 <script>
 export default {
-    data() {
-        return {
-            localAirQualityData: {},
-        };
-    },
     props: {
         airQualityData: Object,
         isLoading: Boolean,
-    },
-    mounted() {
-        this.getAirQualityData(this.airQualityData);
-    },
-    watch: {
-        airQualityData: {
-            handler() {
-                this.getAirQualityData(this.airQualityData);
-            }
-        }
-    },
-    methods: {
-        getAirQualityData(newVal) {
-            this.localAirQualityData = newVal;
-        }
     }
 }
 </script>
@@ -37,27 +17,11 @@ export default {
 
         <!-- air quality box -->
         <div class="p-4">
-            <div v-if="localAirQualityData && localAirQualityData.current">
-                <div class="">
-                    <hr>
-                    <p class="text-gray-800 py-2">Wind Speed: <span class="font-bold"> {{ localAirQualityData.current.wind_kph }} km/h</span> </p>
-                    <hr>
-                </div>
-                <div>
-                    <hr>
-                    <p class="text-gray-800 py-2">Humidity: <span class="font-bold"> {{ localAirQualityData.current.humidity }} %</span></p>
-                    <hr>
-                </div>
-                <div>
-                    <hr>
-                    <p class="text-gray-800 py-2">Wind Gust: <span class="font-bold"> {{ localAirQualityData.current.wind_gust_kph }} km/h</span></p>
-                    <hr>
-                </div>
-                <div>   
-                    <hr>
-                    <p class="text-gray-800 py-2">UV Index: <span class="font-bold"> {{ localAirQualityData.current.uv }} / 10</span></p>
-                    <hr>
-                </div>
+            <div v-if="airQualityData && airQualityData.current && airQualityData.current.air_quality">
+                <p>US EPA Index: {{ airQualityData.current.air_quality['us-epa-index'] }}</p>
+                <p>CO: {{ airQualityData.current.air_quality.co }}</p>
+                <p>PM2.5: {{ airQualityData.current.air_quality.pm2_5 }}</p>
+                <p>PM10: {{ airQualityData.current.air_quality.pm10 }}</p>
             </div>
             <div v-else-if="isLoading">
                 <p class="text-gray-800">Air quality data loading...</p>

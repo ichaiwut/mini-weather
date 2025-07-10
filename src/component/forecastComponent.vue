@@ -1,11 +1,9 @@
 <script>
-import hourly from '../views/hourly.vue';
-import daily from '../views/daily.vue';
 
 export default {
-    components: {
-        hourly,
-        daily
+    props: {
+        forecastData: Object,
+        isLoading: Boolean,
     },
     data() {
         return {
@@ -33,13 +31,28 @@ export default {
                     </div>
                 </div>
             </div>
-            <!-- โชว์คอนเทนต์ hourly -->
-            <div v-if="isHourly">
-                <hourly />
+
+            <div v-if="isHourly && forecastData && forecastData.forecast && forecastData.forecast.forecastday && forecastData.forecast.forecastday[0]" class="flex">
+                <div v-for="hour in forecastData.forecast.forecastday[0].hour">
+                    <p>{{ hour.time }}</p>
+                    <p>{{ hour.condition.text }}</p>
+                    <img :src="hour.condition.icon" alt="weather icon" class="w-25">
+                    <p>{{ hour.temp_c }}</p>
+                </div>   
             </div>
-            <!-- โชว์คอนเทนต์ daily -->
+            <div v-else-if="forecastData && forecastData.forecast && forecastData.forecast.forecastday" class="flex">
+                <div v-for="day in forecastData.forecast.forecastday">
+                    <p>{{ day.date }}</p>
+                    <p>{{ day.day.condition.text }}</p>
+                    <img :src="day.day.condition.icon" alt="weather icon" class="w-25">
+                    <p>{{ day.day.maxtemp_c }}</p>
+                </div>
+            </div>
+            <div v-else-if="isLoading">
+                <p>Loading forecast data...</p>
+            </div>
             <div v-else>
-                <daily />
+                <p>Forecast data not found.</p>
             </div>
         </div>
     </div>
