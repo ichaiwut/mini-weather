@@ -1,14 +1,19 @@
 <script>
+import dayjs from 'dayjs';
+
 
 export default {
     props: {
-        forecastData: Object,
+        weatherData: Object,
         isLoading: Boolean,
     },
     data() {
         return {
             isHourly: true,
         }
+    },
+    methods: {
+        dayjs
     }
 }
 </script>
@@ -31,23 +36,22 @@ export default {
                     </div>
                 </div>
             </div>
-
-            <div v-if="isHourly && forecastData && forecastData.forecast && forecastData.forecast.forecastday && forecastData.forecast.forecastday[0]" class="flex">
-                <div v-for="hour in forecastData.forecast.forecastday[0].hour">
-                    <p>{{ hour.time }}</p>
+            <router-link :to="{ name: 'hourly', params: { city: weatherData.location.name } }" v-if="isHourly && weatherData && weatherData.forecast && weatherData.forecast.forecastday && weatherData.forecast.forecastday[0]" class="flex">
+                <div v-for="hour in weatherData.forecast.forecastday[0].hour">
+                    <p>{{ dayjs(hour.time).format('HH:mm') }}</p>
                     <p>{{ hour.condition.text }}</p>
                     <img :src="hour.condition.icon" alt="weather icon" class="w-25">
                     <p>{{ hour.temp_c }}</p>
                 </div>   
-            </div>
-            <div v-else-if="forecastData && forecastData.forecast && forecastData.forecast.forecastday" class="flex">
-                <div v-for="day in forecastData.forecast.forecastday">
-                    <p>{{ day.date }}</p>
+            </router-link>
+            <router-link :to="{ name: 'daily', params: { city: weatherData.location.name } }" v-else-if="weatherData && weatherData.forecast && weatherData.forecast.forecastday" class="flex">
+                <div v-for="day in weatherData.forecast.forecastday">       
+                    <p>{{ dayjs(day.date).format('DD/MM') }}</p>
                     <p>{{ day.day.condition.text }}</p>
                     <img :src="day.day.condition.icon" alt="weather icon" class="w-25">
                     <p>{{ day.day.maxtemp_c }}</p>
                 </div>
-            </div>
+            </router-link>
             <div v-else-if="isLoading">
                 <p>Loading forecast data...</p>
             </div>

@@ -1,31 +1,42 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import daily from '../views/daily.vue';
-import hourly from '../views/hourly.vue';
-import today from '../views/today.vue';
+import daily from '../pages/daily.vue';
+import hourly from '../pages/hourly.vue';
+import current from '../pages/current.vue';
 import mainComponent from '../component/mainComponent.vue';
-
+import airQuality from '../pages/airQuality.vue';
+import highLight from '../pages/highLight.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: mainComponent
   },
   {
-    path: '/hourly',
-    name: 'Hourly',
+    path: '/hourly/:city',
+    name: 'hourly',
     component: hourly
   },
   {
-    path: '/today',
-    name: 'Today',
-    component: today
-  },
-  {
-    path: '/daily',
-    name: 'Daily',
+    path: '/daily/:city',
+    name: 'daily',
     component: daily
   },
+  {
+    path: '/current/:city',
+    name: 'current',
+    component: current
+  },
+  {
+    path: '/airQuality/:city',
+    name: 'airQuality',
+    component: airQuality
+  },
+  {
+    path: '/highLight/:city',
+    name: 'highLight',
+    component: highLight
+  }
 ];
 
 const router = createRouter({

@@ -17,3 +17,4 @@ async function getWeather(city) {
 }
 
 export default getWeather;
+
