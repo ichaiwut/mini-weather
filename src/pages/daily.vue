@@ -46,11 +46,11 @@ import dayjs from 'dayjs';
                         <p>{{ day.day.maxtemp_c }}°C</p>
                     </div>
                     <div>
-                        <p>Wind speed: {{ day.day.maxwind_kph }} kph</p>
-                        <p>Humidity: {{ day.day.avghumidity }}%</p>
-                        <p>Pressure: {{ day.day.pressure_mb }} mb</p>
-                        <p>Cloud cover: {{ day.day.cloud }}%</p>
-                        <p>UV: {{ day.day.uv }} / 10</p>
+                        <p>Wind speed: <span class="font-bold">{{ day.day.maxwind_kph }} kph</span></p>
+                        <p>Humidity: <span class="font-bold">{{ day.day.avghumidity }}%</span></p>
+                        <p>Pressure: <span class="font-bold">{{ day.day.pressure_mb }} mb</span></p>
+                        <p>Cloud cover: <span class="font-bold">{{ day.day.cloud }}%</span></p>
+                        <p>UV: <span class="font-bold">{{ day.day.uv }} / 10</span></p>
                     </div>
                 </div>
             </div>

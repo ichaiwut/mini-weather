@@ -45,13 +45,13 @@ export default {
                 <!-- air quality box -->
                 <div v-if="weatherData && weatherData.current && weatherData.current.air_quality">
                     <!-- air quality data -->
-                    <p>Carbon Monoxide: {{ weatherData.current.air_quality.co }} μg/m³</p>
-                    <p>Nitrogen Dioxide: {{ weatherData.current.air_quality.no2 }} μg/m³</p>
-                    <p>Ozone: {{ weatherData.current.air_quality.o3 }} μg/m³</p>
-                    <p>PM2.5: {{ weatherData.current.air_quality.pm2_5 }} μg/m³</p>
-                    <p>PM10: {{ weatherData.current.air_quality.pm10 }} μg/m³</p>
-                    <p>Sulfur Dioxide: {{ weatherData.current.air_quality.so2 }} μg/m³</p>
-                    <p>US EPA Index: {{ weatherData.current.air_quality['us-epa-index'] }} / 10</p>
+                    <p>Carbon Monoxide: <span class="font-bold">{{ weatherData.current.air_quality.co }} μg/m³</span></p>
+                    <p>Nitrogen Dioxide: <span class="font-bold">{{ weatherData.current.air_quality.no2 }} μg/m³</span></p>
+                    <p>Ozone: <span class="font-bold">{{ weatherData.current.air_quality.o3 }} μg/m³</span></p>
+                    <p>PM2.5: <span class="font-bold">{{ weatherData.current.air_quality.pm2_5 }} μg/m³</span></p>
+                    <p>PM10: <span class="font-bold">{{ weatherData.current.air_quality.pm10 }} μg/m³</span></p>
+                    <p>Sulfur Dioxide: <span class="font-bold">{{ weatherData.current.air_quality.so2 }} μg/m³</span></p>
+                    <p>US EPA Index: <span class="font-bold">{{ weatherData.current.air_quality['us-epa-index'] }} / 10</span></p>
                 </div>
             </div>
         </div>
