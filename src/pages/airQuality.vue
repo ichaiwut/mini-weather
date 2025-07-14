@@ -1,10 +1,11 @@
 <script>
-import getWeather from '../services/weather.service.js';
-
+import { getWeather } from '../services/weather.service.js';
+import dayjs from 'dayjs';
 export default {
     data() {
         return {
             weatherData: {},
+            dayjs,
         }
     },
     created() {
@@ -14,7 +15,6 @@ export default {
         async getWeatherdata(location) {
             const response = await getWeather(location);
             this.weatherData = response;
-            console.log(this.weatherData);
         }
     }
 }
@@ -23,14 +23,10 @@ export default {
 <template>
     <div class=" h-210">
         <div class="bg-white mt-5 shadow p-5 h-100 max-w-5xl mx-auto">
-            <div class="w-full max-w-5xl mx-auto">
+            <div class="flex justify-between w-full max-w-5xl mx-auto">
                 <div>
                     <!-- back button -->
                     <button @click="this.$router.back()" class="cursor-pointer">back</button>
-                </div>
-                <div>
-                    <!-- Air Quality title -->
-                    <h2>Air Quality</h2>
                 </div>
                 <div>
                     <!-- city name -->
@@ -38,7 +34,7 @@ export default {
                 </div>
             </div>
             <div class="bg-white mt-5 shadow p-5 max-w-5xl mx-auto">
-                <div>
+                <div class="bg-blue-500">
                     <!-- air quality title -->
                     <h2 class="text-2xl font-bold cursor-default">Air Quality</h2>
                 </div>

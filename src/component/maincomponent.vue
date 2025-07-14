@@ -1,5 +1,5 @@
 <script>
-import getWeather from '../services/weather.service.js';
+import { getWeather } from '../services/weather.service.js';
 import airQualityComponent from './airQualityComponent.vue';
 import weatherHighlightComponent from './weatherHighlightComponent.vue';
 import forecastComponent from './forecastComponent.vue';
@@ -41,9 +41,7 @@ export default {
             }
         },
         searchLocation() {
-            if (this.search === '') {
-                return alert('Please enter a location');
-            }
+            if (this.search === '') return alert('Please enter a location');
             this.getWeatherdata(this.search);
         },
         reload() {
@@ -75,18 +73,21 @@ export default {
             <div class="h-125 w-full bg-white rounded-2xl shadow col-span-2">
 
                 <!-- main box title -->
-                <div class="flex justify-between">
-                    <div class="flex items-center ml-5 mt-5">
+                <div class="flex justify-between items-center">
+                    <div class="ml-5 mt-5">
                         <button class="text-2xl font-bold cursor-default">Current Weather</button>
                     </div>
 
-                    <div class="flex items-center justify-end">
-                        <button class="cursor-pointer p-2" @click="reload">Reload</button>
+                    <div class="mr-5">
+                        <router-link v-if="weatherData && weatherData.location"
+                            :to="{ name: 'hourly', params: { city: weatherData.location.name } }">See More</router-link>
+                        <button class="cursor-pointer p-2 ml-5" @click="reload">Reload</button>
                     </div>
                 </div>
 
                 <!-- current weather box -->
-                <router-link v-if="weatherData?.location?.name" :to="{ name: 'current', params: { city: weatherData.location.name }  }">
+                <router-link v-if="weatherData?.location?.name"
+                    :to="{ name: 'toDay', params: { city: weatherData.location.name } }">
                     <div v-if="weatherData && weatherData.current && weatherData.current.condition"
                         class="flex flex-col items-center h-112 rounded-2xl ">
                         <div class="mt-10 mb-5">
@@ -114,16 +115,16 @@ export default {
                         </div>
                     </div>
                 </router-link>
-                    <!-- loading -->
-                    <div v-else-if="isLoading"
-                        class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-10">
-                        <p>Loading weather data...</p>
-                    </div>
+                <!-- loading -->
+                <div v-else-if="isLoading"
+                    class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-10">
+                    <p>Loading weather data...</p>
+                </div>
 
-                    <!-- not found when search not found the location -->
-                    <div v-else class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-10">
-                        <p>Weather data not found.</p>
-                    </div>
+                <!-- not found when search not found the location -->
+                <div v-else class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-10">
+                    <p>Weather data not found.</p>
+                </div>
             </div>
 
             <!-- air quality box -->

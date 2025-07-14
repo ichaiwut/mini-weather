@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import daily from '../pages/daily.vue';
 import hourly from '../pages/hourly.vue';
-import current from '../pages/current.vue';
+import toDay from '../pages/toDay.vue';
 import mainComponent from '../component/mainComponent.vue';
 import airQuality from '../pages/airQuality.vue';
 import highLight from '../pages/highLight.vue';
+import history from '../component/historyComponent.vue';
 
 const routes = [
   {
@@ -23,9 +24,9 @@ const routes = [
     component: daily
   },
   {
-    path: '/current/:city',
-    name: 'current',
-    component: current
+    path: '/toDay/:city',
+    name: 'toDay',
+    component: toDay
   },
   {
     path: '/airQuality/:city',
@@ -36,6 +37,11 @@ const routes = [
     path: '/highLight/:city',
     name: 'highLight',
     component: highLight
+  },
+  {
+    path: '/history',
+    name: 'history',
+    component: history
   }
 ];
 

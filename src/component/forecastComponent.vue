@@ -1,19 +1,16 @@
 <script>
 import dayjs from 'dayjs';
 
-
 export default {
-    props: {
-        weatherData: Object,
-        isLoading: Boolean,
-    },
     data() {
         return {
             isHourly: true,
+            dayjs
         }
     },
-    methods: {
-        dayjs
+    props: {
+        weatherData: Object,
+        isLoading: Boolean,
     }
 }
 </script>
@@ -25,7 +22,8 @@ export default {
                 <div>
                     <h2 class="text-2xl font-bold cursor-default">Weather Forecast</h2>
                 </div>
-                <div>
+                <div class="flex items-center">
+                    <router-link v-if="weatherData && weatherData.location" :to="{ name: 'hourly', params: { city: weatherData.location.name } }">See More</router-link>
                     <div class="flex bg-gray-200 p-2 gap-2">
                         <button class="bg-green-500 p-2" @click="isHourly = true">
                             Hourly
@@ -36,7 +34,7 @@ export default {
                     </div>
                 </div>
             </div>
-            <router-link :to="{ name: 'hourly', params: { city: weatherData.location.name } }" v-if="isHourly && weatherData && weatherData.forecast && weatherData.forecast.forecastday && weatherData.forecast.forecastday[0]" class="flex">
+            <router-link :to="{ name: 'hourly', params: { city: weatherData.location.name } }" v-if="isHourly && weatherData && weatherData.forecast && weatherData.forecast.forecastday && weatherData.forecast.forecastday[0]" class="flex h-46 rounded-2xl">
                 <div v-for="hour in weatherData.forecast.forecastday[0].hour">
                     <p>{{ dayjs(hour.time).format('HH:mm') }}</p>
                     <p>{{ hour.condition.text }}</p>
@@ -44,7 +42,7 @@ export default {
                     <p>{{ hour.temp_c }}</p>
                 </div>   
             </router-link>
-            <router-link :to="{ name: 'daily', params: { city: weatherData.location.name } }" v-else-if="weatherData && weatherData.forecast && weatherData.forecast.forecastday" class="flex">
+            <router-link :to="{ name: 'daily', params: { city: weatherData.location.name } }" v-else-if="weatherData && weatherData.forecast && weatherData.forecast.forecastday" class="flex h-46 rounded-2xl">
                 <div v-for="day in weatherData.forecast.forecastday">       
                     <p>{{ dayjs(day.date).format('DD/MM') }}</p>
                     <p>{{ day.day.condition.text }}</p>
