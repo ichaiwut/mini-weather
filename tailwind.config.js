@@ -5,11 +5,10 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    screens: {     // Extra small devices (phones)
-      'sm': '480px',     // Small devices (tablets)
-      'md': '768px',     // Medium devices (landscape tablets)
-      'lg': '1024px',    // Large devices (laptops/desktops)
-      'xl': '1366px',    // Extra large devices (large desktops)      
+    screens: {
+      'md': '768px',     
+      'lg': '1024px',    
+      'xl': '1366px',          
     },
     extend: {
       colors: {
