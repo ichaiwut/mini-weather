@@ -1,15 +1,18 @@
 <script>
-import { getWeather } from '../services/weather.service.js';
-import airQualityComponent from './airQualityComponent.vue';
-import weatherHighlightComponent from './weatherHighlightComponent.vue';
-import forecastComponent from './forecastComponent.vue';
-
+import { getWeather } from '../../services/weather.service.js';
+import getCurrentLocation from '../../utility/getCerrentlLocation.js';
+import airQualityComponent from '../SubComponents/airQualityComponent.vue';
+import weatherHighlightComponent from '../SubComponents/weatherHighlightComponent.vue';
+import forecastComponent from '../SubComponents/forecastComponent.vue';
+import searchComponent from '../SubComponents/searchComponent.vue';
 
 export default {
     components: {
         airQualityComponent,
         weatherHighlightComponent,
-        forecastComponent
+        forecastComponent,
+        searchComponent,
+        getCurrentLocation
     },
     data() {
         return {
@@ -31,18 +34,10 @@ export default {
                 this.isLoading = false;
             }, 800);
         },
-        getCurrentLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        this.getWeatherdata(`${position.coords.latitude},${position.coords.longitude}`)
-                    }
-                );
-            }
-        },
-        searchLocation() {
-            if (this.search === '') return alert('Please enter a location');
-            this.getWeatherdata(this.search);
+        searchLocation(location) {
+            // Handle search from searchComponent emit
+            const searchTerm = location || this.search;
+            this.getWeatherdata(searchTerm);
         },
         reload() {
             this.getWeatherdata(this.defaultLocation);
@@ -56,14 +51,12 @@ export default {
     <div class="w-full max-w-5xl mx-auto">
 
         <!-- search box -->
-        <div
-            class="border border-gray-300 rounded-xl bg-white text-gray-900 w-90 px-2 py-2 my-10 flex items-center mx-auto shadow">
-            <input class="border-none outline-none w-full" v-model="search" type="text" placeholder="Search Location"
-                @keyup.enter="searchLocation" />
-            <input class="cursor-pointer" type="button" value="Search" @click="searchLocation" />
-        </div>
-        <div>
-            <button class="cursor-pointer" @click="getCurrentLocation">Current location</button>
+        <div class="flex justify-center gap-5">
+            <searchComponent 
+                v-model="search" 
+                @search="searchLocation" 
+            />
+            <button @click="getCurrentLocation">Current Location</button>
         </div>
 
         <!-- main page -->

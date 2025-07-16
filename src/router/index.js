@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router';
 import daily from '../pages/daily.vue';
 import hourly from '../pages/hourly.vue';
 import toDay from '../pages/toDay.vue';
-import mainComponent from '../component/mainComponent.vue';
+import mainComponent from '../component/layoutComponent/mainComponent.vue';
 import airQuality from '../pages/airQuality.vue';
 import highLight from '../pages/highLight.vue';
-import history from '../component/historyComponent.vue';
+import history from '../component/layoutComponent/historyComponent.vue';
 
 const routes = [
   {
