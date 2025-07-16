@@ -1,15 +1,18 @@
 <script>
-import getWeather from '../services/weather.service.js';
-import airQualityComponent from './airQualityComponent.vue';
-import todayHighlightComponent from './todayHighlightComponent.vue';
-import forecastComponent from './forecastComponent.vue';
-
+import { getWeather } from '../../services/weather.service.js';
+import getCurrentLocation from '../../utility/getCerrentlLocation.js';
+import airQualityComponent from '../SubComponents/airQualityComponent.vue';
+import weatherHighlightComponent from '../SubComponents/weatherHighlightComponent.vue';
+import forecastComponent from '../SubComponents/forecastComponent.vue';
+import searchComponent from '../SubComponents/searchComponent.vue';
 
 export default {
     components: {
         airQualityComponent,
-        todayHighlightComponent,
-        forecastComponent
+        weatherHighlightComponent,
+        forecastComponent,
+        searchComponent,
+        getCurrentLocation
     },
     data() {
         return {
@@ -19,7 +22,7 @@ export default {
             isLoading: false,
         };
     },
-    mounted() {
+    created() {
         this.getWeatherdata(this.defaultLocation);
     },
     methods: {
@@ -29,29 +32,17 @@ export default {
             setTimeout(() => {
                 this.weatherData = response;
                 this.isLoading = false;
-            }, 1000);
+            }, 800);
         },
-        getCurrentLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        this.getWeatherdata(`${position.coords.latitude},${position.coords.longitude}`)
-                    }
-                );
-            }
-        },
-        searchLocation() {
-            if (this.search === '') {
-                return alert('Please enter a location');
-            }
-            this.getWeatherdata(this.search);
+        searchLocation(location) {
+            // Handle search from searchComponent emit
+            const searchTerm = location || this.search;
+            this.getWeatherdata(searchTerm);
         },
         reload() {
             this.getWeatherdata(this.defaultLocation);
         }
-    },
-
-
+    }
 };
 </script>
 
@@ -60,13 +51,12 @@ export default {
     <div class="w-full max-w-5xl mx-auto">
 
         <!-- search box -->
-        <div
-            class="border border-gray-300 rounded-xl bg-white text-gray-900 w-90 px-2 py-2 my-10 flex items-center mx-auto shadow">
-            <input class="border-none outline-none w-full" v-model="search" type="text" placeholder="Search" />
-            <input class="cursor-pointer" type="button" value="Search" @click="searchLocation" />
-        </div>
-        <div>
-            <button class="cursor-pointer" @click="getCurrentLocation">Current location</button>
+        <div class="flex justify-center gap-5">
+            <searchComponent 
+                v-model="search" 
+                @search="searchLocation" 
+            />
+            <button @click="getCurrentLocation">Current Location</button>
         </div>
 
         <!-- main page -->
@@ -76,19 +66,23 @@ export default {
             <div class="h-125 w-full bg-white rounded-2xl shadow col-span-2">
 
                 <!-- main box title -->
-                <div class="flex justify-between">
-                    <div class="flex items-center ml-5 mt-5">
+                <div class="flex justify-between items-center">
+                    <div class="ml-5 mt-5">
                         <button class="text-2xl font-bold cursor-default">Current Weather</button>
                     </div>
-                    <div class="reload flex justify-end">
-                        <button class="cursor-pointer p-2" @click="reload">Reload</button>
+
+                    <div class="mr-5">
+                        <router-link v-if="weatherData && weatherData.location"
+                            :to="{ name: 'hourly', params: { city: weatherData.location.name } }">See More</router-link>
+                        <button class="cursor-pointer p-2 ml-5" @click="reload">Reload</button>
                     </div>
                 </div>
 
                 <!-- current weather box -->
-                <div>
+                <router-link v-if="weatherData?.location?.name"
+                    :to="{ name: 'toDay', params: { city: weatherData.location.name } }">
                     <div v-if="weatherData && weatherData.current && weatherData.current.condition"
-                        class="flex flex-col items-center">
+                        class="flex flex-col items-center h-112 rounded-2xl ">
                         <div class="mt-10 mb-5">
                             <p class="text-3xl font-bold cursor-default">{{ weatherData.location.name + ', ' +
                                 weatherData.location.country }}</p>
@@ -113,27 +107,27 @@ export default {
                             </div>
                         </div>
                     </div>
-                    <!-- loading -->
-                    <div v-else-if="isLoading"
-                        class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-10">
-                        <p>Loading weather data...</p>
-                    </div>
+                </router-link>
+                <!-- loading -->
+                <div v-else-if="isLoading"
+                    class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-10">
+                    <p>Loading weather data...</p>
+                </div>
 
-                    <!-- not found when search not found the location -->
-                    <div v-else class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-10">
-                        <p>Weather data not found.</p>
-                    </div>
+                <!-- not found when search not found the location -->
+                <div v-else class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-10">
+                    <p>Weather data not found.</p>
                 </div>
             </div>
 
             <!-- air quality box -->
             <div class="h-120 w-full">
-                <airQualityComponent class="mb-5" :airQualityData="weatherData" :isLoading="isLoading" />
-                <todayHighlightComponent :weatherHighlightData="weatherData" :isLoading="isLoading" />
+                <airQualityComponent class="mb-5" :weatherData="weatherData" :isLoading="isLoading" />
+                <weatherHighlightComponent :weatherData="weatherData" :isLoading="isLoading" />
             </div>
             <!-- weather forecast box -->
             <div class="col-span-3">
-                <forecastComponent :forecastData="weatherData" :isLoading="isLoading" />
+                <forecastComponent :weatherData="weatherData" :isLoading="isLoading" />
             </div>
         </div>
     </div>

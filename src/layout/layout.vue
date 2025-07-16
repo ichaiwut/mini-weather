@@ -1,3 +1,16 @@
+<script>
+import { RouterView } from 'vue-router';
+import headerComponent from "../component/layoutComponent/headerComponent.vue";
+import footerComponent from "../component/layoutComponent/footerComponent.vue";
+export default {
+    components: {
+        RouterView,
+        headerComponent,
+        footerComponent,
+    }
+}
+</script>
+
 <template>
     <div class="bg-gradient-to-tl from-[#57ebd8] to-[#b8e5fe]">
         <header>
@@ -11,16 +24,3 @@
         </footer>
     </div>
 </template>
-
-<script>
-import { RouterView } from 'vue-router';
-import headerComponent from "../component/headerComponent.vue";
-import footerComponent from "../component/footerComponent.vue";
-export default {
-    components: {
-        RouterView,
-        headerComponent,
-        footerComponent,
-    }
-}
-</script>
