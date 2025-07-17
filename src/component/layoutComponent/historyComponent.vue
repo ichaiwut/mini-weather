@@ -10,7 +10,7 @@ export default {
     components: {
         searchComponent,
         selectDateComponent,
-        historyInfoComponent    
+        historyInfoComponent
     },
     data() {
         return {
@@ -27,7 +27,7 @@ export default {
     methods: {
         async getHistoryWeather() {
             if (!this.selectedDates) return;
-            
+
             this.isLoading = true;
             const response = await getHistoryWeather(this.defaultCity, this.selectedDates);
             setTimeout(() => {
@@ -35,15 +35,21 @@ export default {
                 this.isLoading = false;
             }, 600);
         },
-        
+
         handleDateSelect(date) {
             this.selectedDates = date;
             this.getHistoryWeather();
         },
-        
+
         handleLocationSearch(city) {
             this.defaultCity = city;
             this.getHistoryWeather();
+        },
+        getLocation() {
+            getCurrentLocation((coords) => {
+                this.defaultCity = coords;
+                this.getHistoryWeather();
+            });
         }
     }
 }
@@ -56,15 +62,17 @@ export default {
                 ← Back
             </button>
             <h2 class="text-2xl font-bold mb-2">Weather History</h2>
-            <h3 class="text-2xl font-bold">{{ defaultCity }}</h3>
+            <div v-if="historyData.length > 0">
+                <h3 class="text-2xl font-bold">{{ historyData[0].location.name }}</h3>
+            </div>
         </div>
 
         <!-- Search & Date Selection -->
         <div class="flex justify-center gap-5">
             <searchComponent @search="handleLocationSearch" />
-            <button @click="getCurrentLocation">Current Location</button>
+            <button class="cursor-pointer" @click="getLocation">Current Location</button>
         </div>
-        
+
         <selectDateComponent @selectedDates="handleDateSelect" />
 
         <!-- Loading -->
@@ -79,6 +87,7 @@ export default {
 
 
         <!-- History data display -->
-        <historyInfoComponent v-if="selectedDates !== '' && historyData.length > 0 && !isLoading" :historyData="historyData" :selectedDates="selectedDates" />
+        <historyInfoComponent v-if="selectedDates !== '' && historyData.length > 0 && !isLoading"
+            :historyData="historyData" :selectedDates="selectedDates" />
     </div>
 </template>
