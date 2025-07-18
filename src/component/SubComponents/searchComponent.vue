@@ -6,7 +6,6 @@ export default {
             default: 'Search Location'
         }
     },
-    emits: ['search'],
     data() {
         return {
             search: ''

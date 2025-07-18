@@ -12,7 +12,6 @@ export default {
         weatherHighlightComponent,
         forecastComponent,
         searchComponent,
-        getCurrentLocation
     },
     data() {
         return {
@@ -20,6 +19,8 @@ export default {
             search: '',
             defaultLocation: 'chiang mai',
             isLoading: false,
+            getCurrentLocation,
+            
         };
     },
     created() {
@@ -34,8 +35,12 @@ export default {
                 this.isLoading = false;
             }, 800);
         },
+        getLocation() {
+            getCurrentLocation((coords) => {
+                this.getWeatherdata(coords);
+            });
+        },
         searchLocation(location) {
-            // Handle search from searchComponent emit
             const searchTerm = location || this.search;
             this.getWeatherdata(searchTerm);
         },
@@ -56,7 +61,7 @@ export default {
                 v-model="search" 
                 @search="searchLocation" 
             />
-            <button @click="getCurrentLocation">Current Location</button>
+            <button class="cursor-pointer" @click="getLocation">Current Location</button>
         </div>
 
         <!-- main page -->

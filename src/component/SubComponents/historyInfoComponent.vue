@@ -21,40 +21,64 @@ export default {
 
 <template>
     <div v-if="historyData.length > 0 && selectedDates !== ''" class="max-w-5xl mx-auto">
-            <h3 class="text-xl  mb-6 text-center">
-                Weather History for {{ historyData[0].location.name }}
-            </h3>
+        <div class="text-xl mb-6 text-center font-bold mt-5">
+            Weather History for {{ historyData[0].location.name }}
+        </div>
+    </div>
 
-            <div class="bg-white">
-                <div v-for="(dayData, index) in historyData" :key="index" class="rounded-lg shadow-lg p-6">
-                    <div class="text-center mb-4">
-                        <h4 class="text-lg">
-                            {{ dayjs(dayData.forecast.forecastday[0].date).format('dddd') }}
-                            {{ dayjs(dayData.forecast.forecastday[0].date).format('DD/MM') }}
-                        </h4>
-                        <p class="text-sm">{{ historyData[0].location.name }}, {{ historyData[0].location.country }}</p>
-                        <img :src="dayData.forecast.forecastday[0].day.condition.icon"
-                            :alt="dayData.forecast.forecastday[0].day.condition.text" class="w-16 h-16">
-                        {{ dayData.forecast.forecastday[0].day.avgtemp_c }}°C
+    <div class="bg-white max-w-5xl mx-auto rounded-2xl shadow-lg cursor-default">
+        <div v-for="(dayData, index) in historyData" :key="index" class="h-auto p-6">
+            <div class="text-center">
+                <div class="flex flex-col items-center gap-2">
+                    <div class="gap-2 flex justify-center ">
+                        <span class="text-2xl font-bold ">{{ dayjs(dayData.forecast.forecastday[0].date).format('DD/MM' + ' ' + 'dddd') }}</span>
+                    </div>
+                    <div class="text-md ">{{ historyData[0].location.name }}, {{ historyData[0].location.country }}</div>
+                    <div>
+                        <img :src="dayData.forecast.forecastday[0].day.condition.icon" :alt="dayData.forecast.forecastday[0].day.condition.text" class="w-28">
+                    </div>
+                    <div class="text-2xl font-bold">
+                        {{ dayData.forecast.forecastday[0].day.avgtemp_c }} °C
+                    </div>
+                </div>
 
-                        <div class="font-medium">High/Low</div>
-                        {{ dayData.forecast.forecastday[0].day.maxtemp_c }}° /
-                        {{ dayData.forecast.forecastday[0].day.mintemp_c }}°
+                <div class="grid grid-cols-2 gap-2 font-bold mt-5">
+                    <div class="bg-blue-100 p-2 rounded shadow-sm h-32">
+                        <div class="text-xl text-blue-900 mt-5">High/Low</div>
+                        <div class="text-lg text-blue-500 mt-5">
+                            {{ dayData.forecast.forecastday[0].day.maxtemp_c }}°C /
+                            {{ dayData.forecast.forecastday[0].day.mintemp_c }}°C
+                        </div>
+                    </div>
 
-                        <div class="font-medium">Humidity</div>
-                        {{ dayData.forecast.forecastday[0].day.avghumidity }}%
+                    <div class="bg-blue-50 p-2 rounded shadow-sm h-32 ">
+                        <div class="text-xl text-blue-900 mt-5">Humidity</div>
+                        <div class="text-lg text-blue-500 mt-5">
+                            {{ dayData.forecast.forecastday[0].day.avghumidity }}%
+                        </div>
+                    </div>
 
-                        <div class="font-medium">UV Index</div>
-                        {{ dayData.forecast.forecastday[0].day.uv }}
+                    <div class="bg-blue-50 p-2 rounded shadow-sm h-32">
+                        <div class="text-xl text-blue-900 mt-5">UV Index</div>
+                        <div class="text-lg text-blue-500 mt-5">
+                            {{ dayData.forecast.forecastday[0].day.uv }}
+                        </div>
+                    </div>
 
-                        <div class="font-medium">Rain Chance</div>
-                        {{ dayData.forecast.forecastday[0].day.daily_chance_of_rain }}%
-                        <div class="flex justify-between gap-2">
-                            <span>Wind: {{ dayData.forecast.forecastday[0].day.maxwind_kph }} km/h</span>
-                            <span>Visibility: {{ dayData.forecast.forecastday[0].day.avgvis_km }} km</span>
+                    <div class="bg-blue-100 p-2 rounded shadow-sm h-32">
+                        <div class="text-xl text-blue-900 mt-5">Rain Chance</div>
+                        <div class="text-lg text-blue-500 mt-5">
+                            {{ dayData.forecast.forecastday[0].day.daily_chance_of_rain }}%
                         </div>
                     </div>
                 </div>
+                <div class="flex justify-between mt-5 text-blue-600 bg-blue-50 p-3 rounded shadow-sm">
+                    <span class="flex items-center"><i class="fas fa-wind mr-1"></i> Wind: {{
+                        dayData.forecast.forecastday[0].day.maxwind_kph }} km/h</span>
+                    <span class="flex items-center"><i class="fas fa-eye mr-1"></i> Visibility: {{
+                        dayData.forecast.forecastday[0].day.avgvis_km }} km</span>
+                </div>
             </div>
         </div>
+    </div>
 </template>
