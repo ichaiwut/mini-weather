@@ -12,11 +12,11 @@ export default {
 </script>
 
 <template>
-    <div class="bg-gradient-to-tl from-[#57ebd8] to-[#b8e5fe]">
+    <div class="min-h-screen bg-gradient-to-tl from-teal-200 to-blue-100 w-full">
         <header>
             <headerComponent />
         </header>
-        <main class="my-10">
+        <main class="mt-10">
             <RouterView />
         </main>
         <footer class="mt-20">
