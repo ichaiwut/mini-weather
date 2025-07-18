@@ -21,25 +21,17 @@ export default {
 </script>
 
 <template>
-    <div class="bg-white w-full max-w-6xl mx-auto h-150">
-            <div class="flex justify-between">
+    <div class="max-w-5xl mx-3 xl:mx-auto">
+            <div class="flex justify-between my-5 ">
                 <!-- back button -->
-                <button @click="this.$router.back()" class="cursor-pointer">back</button>
-                <div>
+                <button @click="this.$router.back()" class="shadow cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-xl">&larr; back</button>
+                <div class="text-center font-bold text-2xl mr-4 text-gray-600">
                     <!-- city name -->
                     <h2>{{ $route.params.city }}</h2>
                 </div>
             </div>
-        <div class="w-full max-w-5xl mx-auto">
-            <div class="h-125 w-full bg-white rounded-2xl shadow col-span-2 p-5">
-                <!-- day weather -->
-                <div class="flex justify-between bg-blue-500">
-                    <p>Today weather</p>
-                    <!-- day weather date -->
-                    <p>{{ dayjs().format('DD/MM') }}</p>
-                </div>
-                <div v-if="weatherData && weatherData.forecast && weatherData.forecast.forecastday">
-                    <div>
+        <div class="bg-zinc-100 shadow p-5 max-w-5xl mx-auto rounded-2xl">
+            <div class="mb-5 shadow bg-blue-500 p-5 rounded-2xl text-center text-white font-bold text-xl">
                         <!-- day weather data -->
                         <p><img :src="weatherData.forecast.forecastday[0].day.condition.icon" alt="weather icon" class="w-25"></p>
                         <p>{{ weatherData.forecast.forecastday[0].day.condition.text }}</p>
@@ -53,6 +45,4 @@ export default {
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </template>
