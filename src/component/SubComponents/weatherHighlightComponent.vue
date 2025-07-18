@@ -8,7 +8,6 @@ export default {
         weatherData: Object,
         isLoading: Boolean,
     },
-
 }
 </script>
 

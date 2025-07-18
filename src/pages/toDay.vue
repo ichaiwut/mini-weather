@@ -32,15 +32,6 @@ export default {
             </div>
         <div class="bg-zinc-100 shadow p-5 max-w-5xl mx-auto rounded-2xl">
             <div class="mb-5 shadow bg-blue-500 p-5 rounded-2xl text-center text-white font-bold text-xl">
-                    <p>Today weather</p>
-                    <!-- day weather date -->
-                    <p>{{ dayjs().format('DD/MM') }}</p>
-                </div>
-            <div class="h-125 w-full bg-white rounded-2xl shadow col-span-2 p-5">
-                <!-- day weather -->
-                
-                <div v-if="weatherData && weatherData.forecast && weatherData.forecast.forecastday">
-                    <div class="flex flex-col gap-1.5 justify-center items-center text-xl">
                         <!-- day weather data -->
                         <p><img :src="weatherData.forecast.forecastday[0].day.condition.icon" alt="weather icon" class="w-25"></p>
                         <p>{{ weatherData.forecast.forecastday[0].day.condition.text }}</p>
@@ -54,6 +45,4 @@ export default {
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </template>
