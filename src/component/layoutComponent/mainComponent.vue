@@ -1,20 +1,22 @@
 <script>
-import getWeather from '../services/weather.service.js';
-import airQualityComponent from './airQualityComponent.vue';
-import todayHighlightComponent from './todayHighlightComponent.vue';
-import forecastComponent from './forecastComponent.vue';
+import { getWeather } from '../../services/weather.service.js';
+import getCurrentLocation from '../../utility/getCerrentlLocation.js';
+import airQualityComponent from '../SubComponents/airQualityComponent.vue';
+import weatherHighlightComponent from '../SubComponents/weatherHighlightComponent.vue';
+import forecastComponent from '../SubComponents/forecastComponent.vue';
+import searchComponent from '../SubComponents/searchComponent.vue';
 import { HalfCircleSpinner } from 'epic-spinners'
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
 
 
 export default {
-    
+
     components: {
         airQualityComponent,
-        todayHighlightComponent,
+        weatherHighlightComponent,
         forecastComponent,
-        HalfCircleSpinner,
+        searchComponent,
+        getCurrentLocation,
+        HalfCircleSpinner
     },
     data() {
         return {
@@ -24,7 +26,7 @@ export default {
             isLoading: false,
         };
     },
-    mounted() {
+    created() {
         this.getWeatherdata(this.defaultLocation);
     },
     methods: {
@@ -36,30 +38,10 @@ export default {
                 this.isLoading = false;
             }, 1000);
         },
-        getCurrentLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        this.getWeatherdata(`${position.coords.latitude},${position.coords.longitude}`)
-                    }
-                );
-            }
-        },
-        searchLocation() {
-            if (this.search === '') {
-                return  toast.warn('Please enter a location to search.'
-                    , {
-                        position: "top-right",
-                        autoClose: 1500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    }
-                );
-            }
-            this.getWeatherdata(this.search);
+        searchLocation(location) {
+            // Handle search from searchComponent emit
+            const searchTerm = location || this.search;
+            this.getWeatherdata(searchTerm);
         },
         reload() {
             this.getWeatherdata(this.defaultLocation);
@@ -70,16 +52,14 @@ export default {
 
 <template>
     <!-- container -->
-    <div class="w-full max-w-5xl mx-auto">
+    <div class="w-full max-w-6xl mx-auto">
 
         <!-- search box -->
-        <div class="flex m-5 flex-col gap-3 items-center lg:flex-row justify-center">
-            <div class="bg-white p-2 flex gap-2 rounded-lg shadow">
-                <input class="border-none outline-none w-[200px] md:w-[300px]" v-model="search" type="text"
-                    placeholder="Search your location.." />
-                <input class="cursor-pointer" type="button" value="Search" @click="searchLocation" />
-            </div>
-            <button class="flex items-center gap-2 cursor-pointer" @click="getCurrentLocation">
+        <div class="flex flex-col items-center md:flex-row justify-center gap-4 mb-5">
+
+            <searchComponent @search="searchLocation" v-model="search" type="text"
+                placeholder="Search your location.." />
+            <button class="flex items-center my-4 gap-2 cursor-pointer" @click="getCurrentLocation">
                 <span class="text-zinc-500">Current location </span>
                 <span>
                     <svg fill="#71717A" width="20px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -92,27 +72,36 @@ export default {
         </div>
 
         <!-- main page -->
-        <div class="lg:grid grid-cols-1">
+        <div class="lg:grid grid-cols-3">
 
             <!-- main box -->
-            <div class="bg-white p-5 rounded-xl shadow mb-5 mx-4">
+            <div class="bg-white rounded-xl shadow col-span-2  p-5 mx-5 mb-5">
 
                 <!-- main box title -->
-                <div class="flex justify-between">
+                <div class="flex">
                     <div class="flex items-center">
                         <button class="text-2xl font-bold cursor-default">Current Weather</button>
                     </div>
-                    <div class="reload flex justify-end">
+                    <div class="reload flex justify-end ml-auto items-center">
+                        <router-link v-if="weatherData && weatherData.location"
+                            :to="{ name: 'toDay', params: { city: weatherData.location.name } }">See More</router-link>
                         <button class="cursor-pointer p-1.5 mx-2" @click="reload">
-                            <img src="../assets/reload-icon.svg" alt="reload icon" class="w-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#000000" stroke-width="0.75" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747" />
+                                <path d="M20 4v5h-5" />
+                            </svg>
+
                         </button>
                     </div>
                 </div>
 
                 <!-- current weather box -->
-                <div>
+                <router-link v-if="weatherData?.location?.name"
+                    :to="{ name: 'toDay', params: { city: weatherData.location.name } }">
                     <div v-if="weatherData && weatherData.current && weatherData.current.condition"
-                        class="flex flex-col items-center">
+                        class="flex flex-col items-center h-90 rounded-2xl ">
                         <div class="mt-10 mb-5">
                             <p class="text-3xl font-bold cursor-default">
                                 {{ weatherData.location.name + ', ' + weatherData.location.country }}
@@ -128,39 +117,38 @@ export default {
                                 </p>
                             </div>
                             <div>
-                                <p class="text-3xl font-bold cursor-default">
+                                <p class="text-3xl font-bold cursor-default text-center">
                                     {{ weatherData.current.temp_c }}°C
                                 </p>
                                 <p>Feels like {{ weatherData.current.feelslike_c }}°C</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- loading -->
-                    <div v-else-if="isLoading"
-                        class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-4 lg:py-10">
-                        <div>
-                            <half-circle-spinner :animation-duration="700" :size="60" color="#d4e6f1" />
-                        </div>
+                </router-link>
+                <!-- loading -->
+                <div v-else-if="isLoading"
+                    class="text-centermy-20 flex flex-col items-center justify-center py-4 h-100 lg:py-10">
+                    <div>
+                        <half-circle-spinner :animation-duration="700" :size="60" color="#d4e6f1" />
                     </div>
+                </div>
 
-                    <!-- not found -->
-                    <div v-else class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-10">
-                        <p>Weather data not found.</p>
-                    </div>
+                <!-- not found -->
+                <div v-else class="text-center text-gray-500 my-20 flex flex-col items-center justify-center py-10">
+                    <p>Weather data not found.</p>
                 </div>
             </div>
 
             <!-- air quality + today highlight -->
-            <div class="md:grid grid-cols-2 lg:grid-cols-none lg:w-[360px]">
-                <airQualityComponent class="mb-5" :airQualityData="weatherData" :isLoading="isLoading"
-                    :reload="reload" />
-                <todayHighlightComponent :weatherHighlightData="weatherData" :isLoading="isLoading" />
+            <div class="md:grid grid-cols-2 lg:grid-cols-none">
+                <airQualityComponent class="mb-5" :weatherData="weatherData" :isLoading="isLoading" />
+
+                <weatherHighlightComponent :weatherData="weatherData" :isLoading="isLoading" />
             </div>
 
             <!-- forecast -->
-            <div class="col-span-3">
-                <forecastComponent :forecastData="weatherData" :isLoading="isLoading" />
+            <div class="lg:col-span-3">
+                <forecastComponent :weatherData="weatherData" :isLoading="isLoading" />
             </div>
         </div>
     </div>
