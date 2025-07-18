@@ -28,19 +28,20 @@ export default {
           Weather Forecast
         </h2>
       </div>
-      <div class="flex">
-        <div class="my-auto mx-5 w-[100px] md:w-[80px]"></div>
-        <div class="flex bg-gray-200 p-1 gap-2 m-3 rounded-xl h-11">
-          <button
-            class="bg-gray-200 px-3 rounded-xl focus:bg-white transition-all duration-100"
-            @click="isHourly = true"
-          >
+      <div class="flex items-center m-3">
+        <div class="my-auto mx-5 w-[100px]">
+          <router-link v-if="weatherData && weatherData.location && isHourly"
+            :to="{ name: 'hourly', params: { city: weatherData.location.name } }">See More</router-link>
+          <router-link v-if="weatherData && weatherData.location && isDaily"
+            :to="{ name: 'daily', params: { city: weatherData.location.name } }">See More</router-link>
+        </div>
+        <div class="flex justify-center bg-gray-200 py-2 rounded-xl flex-wrap">
+          <button class="px-2 rounded-xl focus:bg-white transition-all duration-100"
+            @click="isHourly = true; isDaily = false">
             Hourly
           </button>
-          <button
-            class="bg-gray-200 px-3 rounded-xl focus:bg-white transition-all duration-100"
-            @click="isHourly = false"
-          >
+          <button class="px-2 rounded-xl focus:bg-white transition-all duration-100"
+            @click="isDaily = true; isHourly = false">
             Daily
           </button>
         </div>
