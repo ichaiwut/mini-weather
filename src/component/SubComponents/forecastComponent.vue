@@ -5,6 +5,7 @@ export default {
     data() {
         return {
             isHourly: true,
+            isDaily: false,
             dayjs
         }
     },
@@ -23,12 +24,13 @@ export default {
                     <h2 class="text-2xl font-bold cursor-default">Weather Forecast</h2>
                 </div>
                 <div class="flex items-center">
-                    <router-link v-if="weatherData && weatherData.location" :to="{ name: 'hourly', params: { city: weatherData.location.name } }">See More</router-link>
+                    <router-link v-if="weatherData && weatherData.location && isHourly" :to="{ name: 'hourly', params: { city: weatherData.location.name } }">See More</router-link>
+                    <router-link v-if="weatherData && weatherData.location && isDaily" :to="{ name: 'daily', params: { city: weatherData.location.name } }">See More</router-link>
                     <div class="flex bg-gray-200 p-2 gap-2">
-                        <button class="bg-green-500 p-2" @click="isHourly = true">
+                        <button class="bg-green-500 p-2" @click="isHourly = true; isDaily = false">
                             Hourly
                         </button>
-                        <button class="bg-blue-500 p-2" @click="isHourly = false">
+                        <button class="bg-blue-500 p-2" @click="isDaily = true; isHourly = false">
                             Daily
                         </button>
                     </div>
