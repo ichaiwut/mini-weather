@@ -5,14 +5,12 @@ import searchComponent from '../SubComponents/searchComponent.vue';
 import selectDateComponent from '../SubComponents/selectDateComponent.vue';
 import historyInfoComponent from '../SubComponents/historyInfoComponent.vue';
 import dayjs from 'dayjs';
-import { HalfCircleSpinner } from 'epic-spinners'
 
 export default {
     components: {
         searchComponent,
         selectDateComponent,
-        historyInfoComponent,
-        HalfCircleSpinner    
+        historyInfoComponent,    
     },
     data() {
         return {
@@ -75,21 +73,15 @@ export default {
                 </span>
             </button>
         </div>
-        
-        <selectDateComponent @selectedDates="handleDateSelect" />
 
-        <!-- Loading -->
-        <div v-if="isLoading" class="text-center p-8">
-            <p class="mt-2 text-gray-600">Loading weather history...</p>
-        </div>
+        <selectDateComponent @selectedDates="handleDateSelect" />
 
         <!-- No Selection Message -->
         <div v-if="selectedDates === '' && !isLoading" class="text-center p-8">
             <p class="text-gray-500">Please select a date to view weather history</p>
         </div>
-
-
+        
         <!-- History data display -->
-        <historyInfoComponent v-if="selectedDates !== '' && historyData.length > 0 && !isLoading" :historyData="historyData" :selectedDates="selectedDates" />
+        <historyInfoComponent v-if="selectedDates !== ''" :historyData="historyData" :selectedDates="selectedDates" :isLoading="isLoading" />
     </div>
 </template>
