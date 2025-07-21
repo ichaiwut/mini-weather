@@ -1,6 +1,10 @@
 <script>
 import dayjs from 'dayjs';
+import { HalfCircleSpinner } from 'epic-spinners'
 export default {
+    components: {
+        HalfCircleSpinner,
+    },
     props: {
         historyData: {
             type: Array,
@@ -10,6 +14,10 @@ export default {
             type: String,
             default: ''
         },
+        isLoading: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
@@ -20,14 +28,17 @@ export default {
 </script>
 
 <template>
-    <div v-if="historyData.length > 0 && selectedDates !== ''" class="max-w-5xl mx-auto">
-        <div class="text-xl mb-6 text-center font-bold mt-5">
-            Weather History for {{ historyData[0].location.name }}
-        </div>
+    <div v-if="historyData.length > 0" class="text-xl mb-6 text-center font-bold mt-5">
+        <p>Weather History for {{ historyData[0].location.name }}</p>
     </div>
 
-    <div class="bg-white max-w-5xl mx-auto rounded-2xl shadow-lg cursor-default">
-        <div v-for="(dayData, index) in historyData" :key="index" class="h-auto p-6">
+    <div class="bg-white max-w-5xl mx-auto rounded-2xl shadow-lg cursor-default h-160 py-5">
+
+        <div v-if="isLoading" class="flex justify-center items-center h-140">
+            <HalfCircleSpinner color="#d4e6f1" :size="50" :animation-duration="700" />
+        </div>
+
+        <div v-if="!isLoading" v-for="(dayData, index) in historyData" :key="index" class="p-6">
             <div class="text-center">
                 <div class="flex flex-col items-center gap-2">
                     <div class="gap-2 flex justify-center ">
@@ -73,9 +84,9 @@ export default {
                     </div>
                 </div>
                 <div class="flex justify-between mt-5 text-blue-600 bg-blue-50 p-3 rounded shadow-sm">
-                    <span class="flex items-center"><i class="fas fa-wind mr-1"></i> Wind: {{
+                    <span class="flex items-center"> Wind: {{
                         dayData.forecast.forecastday[0].day.maxwind_kph }} km/h</span>
-                    <span class="flex items-center"><i class="fas fa-eye mr-1"></i> Visibility: {{
+                    <span class="flex items-center"> Visibility: {{
                         dayData.forecast.forecastday[0].day.avgvis_km }} km</span>
                 </div>
             </div>
