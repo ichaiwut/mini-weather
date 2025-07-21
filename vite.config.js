@@ -3,10 +3,10 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import tailwindcss from '@tailwindcss/vite'
 
-
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue(),tailwindcss()],
+  plugins: [vue(), tailwindcss()],
+  base: '/',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src')
@@ -14,6 +14,12 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: true
+    open: true,
+    historyApiFallback: true
+  },
+  preview: {
+    port: 3000,
+    open: true,
+    historyApiFallback: true
   }
 }) 
